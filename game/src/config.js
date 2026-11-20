@@ -1,61 +1,90 @@
-// Every tuning number and colour in one place. The playfield is a fixed 1280x720 logical area;
-// the renderer scales it to the window, so no rule below depends on the screen size.
+// Neon Palms — shared tuning numbers, colours and names in one place.
+// The view is a fixed 1280x720 logical canvas; the world is far larger and the
+// camera moves over it, so nothing here depends on the window size.
 
-export const FIELD = { width: 1280, height: 720, groundY: 664 };
+export const VIEW = { width: 1280, height: 720 };
 
-/** The simulation's fixed step, in seconds: 60 updates a second whatever the display's rate. */
+/** The simulation's fixed step, in seconds: 60 updates a second at any display rate. */
 export const STEP = 1 / 60;
 
+/** Storage keys for this browser only. */
+export const SAVE_KEY = 'neon-palms.save.v1';
+
+/** The city of Palmera Bay: names the story and the HUD use. */
+export const CITY_NAME = 'Palmera Bay';
+export const GAME_TITLE = 'NEON PALMS';
+export const FIXER_NAME = 'Mara Voss';
+
 export const PLAYER = {
-  width: 72,
-  height: 24,
-  speed: 560,
-  invulnerable: 1.5,
+  radius: 13,
+  walkSpeed: 168,
+  runSpeed: 292,
+  health: 100,
+  armour: 50,
+  punchRange: 34,
+  punchDamage: 26,
+  punchCooldown: 0.34,
+  startCash: 120,
 };
 
-export const LIVES = 3;
-
-export const BLOCK = {
-  minWidth: 40,
-  maxWidth: 110,
-  height: 36,
-  speed: 240,
-  speedPerLevel: 30,
-  speedJitter: 90,
-  interval: 0.55,
-  intervalScale: 0.88,
-  minInterval: 0.14,
-  dodgePoints: 1,
+export const GUN = {
+  damage: 34,
+  range: 560,
+  speed: 1500,
+  cooldown: 0.21,
+  spread: 0.028,
+  startAmmo: 48,
 };
 
-export const COIN = {
-  size: 24,
-  speed: 190,
-  speedPerLevel: 14,
-  interval: 1.4,
-  intervalJitter: 0.8,
-  points: 10,
+export const WANTED = {
+  /** Heat points per star: star n shows while heat >= n * perStar. */
+  perStar: 100,
+  maxStars: 5,
+  decayPerSecond: 3.2,
+  decayHiddenPerSecond: 9,
+  sightRange: 330,
 };
 
-/** Seconds of play per level, and the last level: speeds and spawn rates stop growing there. */
-export const LEVEL = { seconds: 12, max: 12 };
+export const PRICES = { respray: 250, armour: 150 };
 
-/** How many falling things can exist at once; the pool is allocated once, at boot. */
-export const POOL_SIZE = 64;
+/** One game day in real seconds; the clock starts at 09:40 on a new game. */
+export const DAY_SECONDS = 540;
+export const START_HOUR = 9.66;
 
 export const PALETTE = {
-  backdrop: '#11141b',
-  sky: '#1b1f2a',
-  ground: '#2a3040',
-  player: '#4fc3f7',
-  block: '#e5534b',
-  coin: '#f2c94c',
-  panel: '#252b38',
-  text: '#eef1f5',
-  muted: '#8b93a3',
+  sky: '#0d1020',
+  water: '#14586e',
+  waterDeep: '#0d3d54',
+  sand: '#e3c188',
+  grass: '#3f7a44',
+  grassDark: '#356b3b',
+  lot: '#565a52',
+  sidewalk: '#9aa0a3',
+  sidewalkEdge: '#7c8287',
+  road: '#33373d',
+  roadEdge: '#26292e',
+  lane: '#d8c26a',
+  crosswalk: '#cfd3d6',
+  neonPink: '#ff4d8d',
+  neonCyan: '#37e0d8',
+  neonAmber: '#ffb340',
+  blood: '#b03030',
+  cash: '#7dd069',
+  text: '#f4f1e8',
+  muted: '#a7adba',
+  panel: 'rgba(10, 12, 24, 0.78)',
+  panelEdge: 'rgba(255, 255, 255, 0.16)',
 };
 
-export const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
+/** District accent colours, keyed by the names city.js assigns. */
+export const DISTRICT_STYLES = {
+  'Coral Heights': { roof: '#c96f4a', wall: '#8a4a34', ground: 'grass' },
+  'Old Town': { roof: '#a8583c', wall: '#6e3a2c', ground: 'lot' },
+  'Palm Beach': { roof: '#e8e3d5', wall: '#9c968a', ground: 'sand' },
+  'Downtown': { roof: '#3d4b63', wall: '#232c3f', ground: 'lot' },
+  'Southgate': { roof: '#7a6a55', wall: '#524739', ground: 'lot' },
+  'Foundry District': { roof: '#6b6f75', wall: '#45484d', ground: 'lot' },
+  'Marina Del Sol': { roof: '#4a7a8c', wall: '#2f5261', ground: 'lot' },
+};
 
-/** Where the best score is kept between visits (this browser only). */
-export const BEST_KEY = 'block-dodger.best';
+export const FONT = '"Segoe UI", system-ui, -apple-system, sans-serif';
